@@ -1,3 +1,5 @@
 """Main runtime"""
 
-print("Hello")
+from process import preview_raw
+
+preview_raw()
