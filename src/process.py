@@ -22,15 +22,15 @@ def get_cols(features=None):
     """Gets the specified columns or returns the entire dataFrame.
 
     Args:
-        features (List[string], optional): A list of features to pull from the raw dataframe. Defaults to None.
+        features (List[str], optional): A list of features to pull from the raw dataframe. Defaults to None.
 
     Returns:
-        DataFrame: The full or partial dataframe.
+        Tuple[float]: A tuple of features with its respective values.
     """
 
     raw_df = pd.read_csv("data/raw/fetal_health.csv")
 
     if features:
-        return raw_df[features]
+        return tuple(raw_df[feature].values for feature in features)
 
-    return raw_df
+    return tuple(raw_df[feature].values for feature in list(raw_df))

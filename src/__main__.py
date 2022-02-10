@@ -1,7 +1,11 @@
-"""Main runtime"""
+"""Main runtime."""
 
 from process import preview_raw, get_cols
+from visualise import plot_scatter
 
-preview_raw()
+if __name__ == "__main__":
+    preview_raw()
 
-print(get_cols(["accelerations", "baseline value"]))
+    acc, base = get_cols(["histogram_mean", "baseline value"])
+
+    plot_scatter(acc, base)
