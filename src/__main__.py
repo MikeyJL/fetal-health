@@ -1,1 +1,3 @@
-print('Hello')
+"""Main runtime"""
+
+print("Hello")
