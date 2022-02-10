@@ -9,4 +9,10 @@ import pandas as pd
 def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
-    print(pd.read_csv("data/raw/fetal_health.csv").head())
+    raw_df = pd.read_csv("data/raw/fetal_health.csv")
+
+    print("\n===== Features =====\n")
+    print(", ".join(list(raw_df)))
+
+    print("\n===== Summary =====\n")
+    print(raw_df.head())
