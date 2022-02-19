@@ -25,7 +25,7 @@ def get_cols(features=None):
         features (List[str], optional): A list of features to pull from the raw dataframe. Defaults to None.
 
     Returns:
-        Tuple[float]: A tuple of features with its respective values.
+        Tuple[ndarray[float]]: A tuple of features with its respective values.
     """
 
     raw_df = pd.read_csv("data/raw/fetal_health.csv")
