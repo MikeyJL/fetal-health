@@ -11,8 +11,10 @@ TITLE = """
 # pylint: enable="anomalous-backslash-in-string"
 
 MAIN_MENU_OPTIONS = [
+    "Preview dataset",
     "Show group baseline value historgram subplot",
     "Show individual group baseline value histogram",
+    "Exit",
 ]
 
 
@@ -25,7 +27,7 @@ def print_title():
 def print_main_menu():
     """Prints the main menu."""
 
-    print("-------- Main Menu --------")
+    print("\n-------- Main Menu --------")
     print(
         "\n".join(
             [
