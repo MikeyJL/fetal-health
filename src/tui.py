@@ -28,6 +28,12 @@ def print_title():
     print(TITLE)
 
 
+def print_heading(heading):
+    """Prints the heading with seperator."""
+
+    print(f"\n========== {heading} ==========\n")
+
+
 def print_main_menu():
     """Prints the main menu."""
 

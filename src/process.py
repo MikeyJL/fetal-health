@@ -4,6 +4,7 @@ Requires: pandas.
 """
 
 import pandas as pd
+from tui import print_heading
 
 
 def preview_raw():
@@ -11,10 +12,10 @@ def preview_raw():
 
     raw_df = pd.read_csv("data/raw/fetal_health.csv")
 
-    print("\n===== Features =====\n")
+    print_heading("Features")
     print(", ".join(list(raw_df)))
 
-    print("\n===== Summary =====\n")
+    print_heading("Summary")
     print(raw_df.head())
 
 
