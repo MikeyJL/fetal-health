@@ -1,5 +1,9 @@
 """Lets the user input values and shows menus."""
 
+import logging as log
+
+log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
+
 # pylint: disable="anomalous-backslash-in-string"
 TITLE = """
   _____    _        _   _   _            _ _   _     
@@ -53,6 +57,6 @@ def get_option(msg="Please select an option"):
         try:
             value = int(input(f"\n{msg}\n>>> "))
         except ValueError as e:
-            print(f"\n[VALUE ERROR]: {e}")
+            log.error(e)
 
     return value

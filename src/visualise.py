@@ -1,7 +1,10 @@
 """Visualises the data."""
 
 from os.path import exists
+import logging as log
 import matplotlib.pyplot as plt
+
+log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
 FIGURE_DIR = "reports/figures/"
 
@@ -39,10 +42,10 @@ def plot_hist(x_values, filename=None):
         if not figure_exists:
             plt.savefig(f"{FIGURE_DIR}{filename}")
 
-        print(
-            "\n[LOG] Figure saved to reports/figures"
+        log.info(
+            "Figure saved to reports/figures"
             if not figure_exists
-            else "\n[LOG] Figure already exists."
+            else "Figure already exists."
         )
 
     plt.show()
