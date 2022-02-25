@@ -1,6 +1,9 @@
 """Visualises the data."""
 
+from os.path import exists
 import matplotlib.pyplot as plt
+
+FIGURE_DIR = "reports/figures/"
 
 
 def plot_scatter(x_values, y_values):
@@ -15,15 +18,31 @@ def plot_scatter(x_values, y_values):
     plt.show()
 
 
-def plot_hist(x_values):
+def plot_hist(x_values, filename=None):
     """Generates histogram(s) from given values.
+
+    Optionally can save it to the reports/figures directory.
 
     Args:
         x_values (list[list[float]]): A matrix of values.
+        filename (str, optional): The name of the figure. Defaults to None.
     """
 
     fig, axs = plt.subplots(1, len(x_values), figsize=(12, 9))
     for index, x in enumerate(x_values):
         axs[index].hist(x)
     fig.suptitle("Histogram plot")
+
+    if filename is not None:
+        figure_exists = exists(f"{FIGURE_DIR}{filename}")
+
+        if not figure_exists:
+            plt.savefig(f"{FIGURE_DIR}{filename}")
+
+        print(
+            "\n[LOG] Figure saved to reports/figures"
+            if not figure_exists
+            else "\n[LOG] Figure already exists."
+        )
+
     plt.show()
