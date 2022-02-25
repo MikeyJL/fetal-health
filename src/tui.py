@@ -34,4 +34,23 @@ def print_main_menu():
             ]
         )
     )
-    print("")
+
+
+def get_option(msg="Please select an option"):
+    """Prompts the user for an option and validates it.
+
+    Args:
+        msg (str, optional): Shows an input message. Defaults to "Please select an option".
+
+    Returns:
+        int: The validated input option.
+    """
+
+    value = None
+    while value is None:
+        try:
+            value = int(input(f"\n{msg}\n>>> "))
+        except ValueError as e:
+            print(f"\n[VALUE ERROR]: {e}")
+
+    return value
