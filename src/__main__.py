@@ -3,6 +3,7 @@
 from process import preview_raw, get_cols
 from visualise import plot_hist
 from tui import print_title, print_menu, get_option
+from _typing import GetColsValue, AxisValues
 
 
 def baseline_subplots() -> None:
@@ -11,10 +12,10 @@ def baseline_subplots() -> None:
     Pulls out the fetal health and creates subgroups of historgrams.
     """
 
-    df = get_cols(["baseline value", "fetal_health"], as_df=True)
+    df: GetColsValue = get_cols(["baseline value", "fetal_health"], as_df=True)
     print(f"\n{df.describe()}\n")
 
-    X = [
+    X: list[AxisValues] = [
         df[df["fetal_health"] == 1]["baseline value"].values,
         df[df["fetal_health"] == 2]["baseline value"].values,
         df[df["fetal_health"] == 3]["baseline value"].values,
@@ -26,7 +27,7 @@ def explore_options() -> None:
     """Handles explore submenu selection."""
 
     print_menu(menu_type="Explore")
-    explore_option = get_option()
+    explore_option: int = get_option()
     if explore_option == 1:
         preview_raw()
     elif explore_option == 2:
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     print_title()
     while True:
         print_menu()
-        option = get_option()
+        option: int = get_option()
         if option == 1:
             explore_options()
         elif option == 2:

@@ -1,11 +1,12 @@
 """Lets the user input values and shows menus."""
 
 import logging as log
+from _typing import Menu
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
 # pylint: disable="anomalous-backslash-in-string"
-TITLE = """
+TITLE: str = """
   _____    _        _   _   _            _ _   _     
  |  ___|__| |_ __ _| | | | | | ___  __ _| | |_| |__  
  | |_ / _ \ __/ _` | | | |_| |/ _ \/ _` | | __| '_ \ 
@@ -14,12 +15,12 @@ TITLE = """
 """
 # pylint: enable="anomalous-backslash-in-string"
 
-MAIN_MENU_OPTIONS = [
+MAIN_MENU_OPTIONS: Menu = [
     "Expore dataset",
     "Exit",
 ]
 
-DATA_EXPLORATION_MENU = [
+DATA_EXPLORATION_MENU: Menu = [
     "Dataset overview",
     "Show group baseline value historgram subplot",
     "Show individual group baseline value histogram",
@@ -39,7 +40,7 @@ def print_heading(heading: str) -> None:
     print(f"\n========== {heading} ==========\n")
 
 
-def __get_menu(menu_type: str) -> list[str]:
+def __get_menu(menu_type: str) -> Menu:
     """Gets the menu array.
 
     Args:
@@ -78,7 +79,7 @@ def get_option(msg: str = "Please select an option") -> int:
         int: The validated input option.
     """
 
-    value = None
+    value: int | None = None
     while value is None:
         try:
             value = int(input(f"\n{msg}\n>>> "))

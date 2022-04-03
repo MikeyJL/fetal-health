@@ -3,6 +3,7 @@
 from os.path import exists
 import logging as log
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Figure, Axes
 from _typing import AxisValues
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
@@ -22,7 +23,7 @@ def plot_scatter(x_values: AxisValues, y_values: AxisValues) -> None:
     plt.show()
 
 
-def plot_hist(x_values: list[AxisValues], filename: str = None) -> None:
+def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
     """Generates histogram(s) from given values.
 
     Optionally can save it to the reports/figures directory.
@@ -32,13 +33,18 @@ def plot_hist(x_values: list[AxisValues], filename: str = None) -> None:
         filename (str, optional): The name of the figure. Defaults to None.
     """
 
+    fig: Figure
+    axs: Axes
+    index: int
+    x: AxisValues
+
     fig, axs = plt.subplots(1, len(x_values), figsize=(12, 9))
     for index, x in enumerate(x_values):
         axs[index].hist(x)
     fig.suptitle("Histogram plot")
 
     if filename is not None:
-        figure_exists = exists(f"{FIGURE_DIR}{filename}")
+        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
 
         if not figure_exists:
             plt.savefig(f"{FIGURE_DIR}{filename}")

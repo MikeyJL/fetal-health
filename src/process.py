@@ -4,6 +4,7 @@ Requires: pandas.
 """
 
 import pandas as pd
+from pandas import DataFrame
 from tui import print_heading
 from _typing import GetColsValue
 
@@ -11,7 +12,7 @@ from _typing import GetColsValue
 def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
-    raw_df = pd.read_csv("data/raw/fetal_health.csv")
+    raw_df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     print_heading("Features and Data Types")
     print(raw_df.dtypes)
@@ -26,7 +27,7 @@ def preview_raw() -> None:
     print(raw_df.head())
 
 
-def get_cols(features: list[str] = None, as_df: bool = False) -> GetColsValue:
+def get_cols(features: list[str] | None = None, as_df: bool = False) -> GetColsValue:
     """Gets the specified columns or returns the entire dataFrame.
 
     Args:
@@ -38,7 +39,7 @@ def get_cols(features: list[str] = None, as_df: bool = False) -> GetColsValue:
         Dataframe: A pandas dataframe with selected features.
     """
 
-    raw_df = pd.read_csv("data/raw/fetal_health.csv")
+    raw_df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     if as_df:
         return raw_df[features or list(raw_df)]
