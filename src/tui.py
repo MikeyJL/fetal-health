@@ -27,19 +27,19 @@ DATA_EXPLORATION_MENU = [
 ]
 
 
-def print_title():
+def print_title() -> None:
     """Prints the Fetal Health title."""
 
     print(TITLE)
 
 
-def print_heading(heading):
+def print_heading(heading: str) -> None:
     """Prints the heading with seperator."""
 
     print(f"\n========== {heading} ==========\n")
 
 
-def __get_menu(menu_type):
+def __get_menu(menu_type: str) -> list[str]:
     """Gets the menu array.
 
     Args:
@@ -54,7 +54,7 @@ def __get_menu(menu_type):
     return DATA_EXPLORATION_MENU
 
 
-def print_menu(menu_type="Main"):
+def print_menu(menu_type: str = "Main") -> None:
     """Prints the selected menu."""
 
     print(f"\n-------- {menu_type} Menu --------")
@@ -68,7 +68,7 @@ def print_menu(menu_type="Main"):
     )
 
 
-def get_option(msg="Please select an option"):
+def get_option(msg: str = "Please select an option") -> int:
     """Prompts the user for an option and validates it.
 
     Args:

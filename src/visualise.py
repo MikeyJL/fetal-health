@@ -9,7 +9,7 @@ log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 FIGURE_DIR = "reports/figures/"
 
 
-def plot_scatter(x_values, y_values):
+def plot_scatter(x_values, y_values) -> None:
     """Generates a scatter plot with given data.
 
     Args:

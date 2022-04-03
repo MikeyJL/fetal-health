@@ -5,9 +5,10 @@ Requires: pandas.
 
 import pandas as pd
 from tui import print_heading
+from _typing import GetColsValue
 
 
-def preview_raw():
+def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
     raw_df = pd.read_csv("data/raw/fetal_health.csv")
@@ -25,7 +26,7 @@ def preview_raw():
     print(raw_df.head())
 
 
-def get_cols(features=None, as_df=False):
+def get_cols(features=None, as_df=False) -> GetColsValue:
     """Gets the specified columns or returns the entire dataFrame.
 
     Args:
