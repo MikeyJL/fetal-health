@@ -22,6 +22,19 @@ def baseline_subplots() -> None:
     plot_hist(X, "baseline-hist-subplot.png")
 
 
+def explore_options() -> None:
+    """Handles explore submenu selection."""
+
+    print_menu(menu_type="Explore")
+    explore_option = get_option()
+    if explore_option == 1:
+        baseline_subplots()
+    elif explore_option == 2:
+        pass
+    elif explore_option == 3:
+        pass
+
+
 if __name__ == "__main__":
     print_title()
     while True:
@@ -30,8 +43,6 @@ if __name__ == "__main__":
         if option == 1:
             preview_raw()
         elif option == 2:
-            baseline_subplots()
+            explore_options()
         elif option == 3:
-            pass
-        elif option == 4:
             break

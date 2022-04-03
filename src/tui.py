@@ -23,6 +23,7 @@ MAIN_MENU_OPTIONS = [
 DATA_EXPLORATION_MENU = [
     "Show group baseline value historgram subplot",
     "Show individual group baseline value histogram",
+    "Back to Main Menu",
 ]
 
 
@@ -56,7 +57,7 @@ def __get_menu(menu_type):
 def print_menu(menu_type="Main"):
     """Prints the selected menu."""
 
-    print(f"\n-------- ${menu_type} Menu --------")
+    print(f"\n-------- {menu_type} Menu --------")
     print(
         "\n".join(
             [

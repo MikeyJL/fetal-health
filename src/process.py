@@ -23,7 +23,7 @@ def get_cols(features=None, as_df=False):
     """Gets the specified columns or returns the entire dataFrame.
 
     Args:
-        features (List[str], optional): A list of features to pull from the raw dataframe. Defaults to None.
+        features (list[str], optional): A list of features to pull from the raw dataframe. Defaults to None.
         in_row (bool, optional): To return as a row. Defaults to True.
 
     Returns:
