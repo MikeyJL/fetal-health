@@ -19,3 +19,4 @@ repos:
       rev: v0.931
       hooks:
           - id: mypy
+            args: [--disallow-untyped-calls, --ignore-missing-imports]
