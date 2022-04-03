@@ -12,8 +12,14 @@ def preview_raw():
 
     raw_df = pd.read_csv("data/raw/fetal_health.csv")
 
-    print_heading("Features")
-    print(", ".join(list(raw_df)))
+    print_heading("Features and Data Types")
+    print(raw_df.dtypes)
+
+    print_heading("Null Count")
+    print(raw_df.isnull().sum())
+
+    print_heading("Unique Value Count")
+    print(raw_df.nunique())
 
     print_heading("Summary")
     print(raw_df.head())
