@@ -16,9 +16,13 @@ TITLE = """
 
 MAIN_MENU_OPTIONS = [
     "Preview dataset",
+    "Expore dataset",
+    "Exit",
+]
+
+DATA_EXPLORATION_MENU = [
     "Show group baseline value historgram subplot",
     "Show individual group baseline value histogram",
-    "Exit",
 ]
 
 
@@ -34,15 +38,30 @@ def print_heading(heading):
     print(f"\n========== {heading} ==========\n")
 
 
-def print_main_menu():
-    """Prints the main menu."""
+def __get_menu(menu_type):
+    """Gets the menu array.
 
-    print("\n-------- Main Menu --------")
+    Args:
+        menu_type (str): The menu to return.
+
+    Returns:
+        list[str]: The menu selected.
+    """
+
+    if menu_type == "Main":
+        return MAIN_MENU_OPTIONS
+    return DATA_EXPLORATION_MENU
+
+
+def print_menu(menu_type="Main"):
+    """Prints the selected menu."""
+
+    print(f"\n-------- ${menu_type} Menu --------")
     print(
         "\n".join(
             [
                 f"[{index + 1}] {option}"
-                for index, option in enumerate(MAIN_MENU_OPTIONS)
+                for index, option in enumerate(__get_menu(menu_type))
             ]
         )
     )

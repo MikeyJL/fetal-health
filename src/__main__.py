@@ -2,7 +2,7 @@
 
 from process import preview_raw, get_cols
 from visualise import plot_hist
-from tui import print_title, print_main_menu, get_option
+from tui import print_title, print_menu, get_option
 
 
 def baseline_subplots() -> None:
@@ -25,7 +25,7 @@ def baseline_subplots() -> None:
 if __name__ == "__main__":
     print_title()
     while True:
-        print_main_menu()
+        print_menu()
         option = get_option()
         if option == 1:
             preview_raw()
