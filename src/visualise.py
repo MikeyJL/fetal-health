@@ -9,7 +9,7 @@ log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 FIGURE_DIR = "reports/figures/"
 
 
-def plot_scatter(x_values, y_values):
+def plot_scatter(x_values, y_values) -> None:
     """Generates a scatter plot with given data.
 
     Args:
@@ -21,7 +21,7 @@ def plot_scatter(x_values, y_values):
     plt.show()
 
 
-def plot_hist(x_values, filename=None):
+def plot_hist(x_values, filename=None) -> None:
     """Generates histogram(s) from given values.
 
     Optionally can save it to the reports/figures directory.
