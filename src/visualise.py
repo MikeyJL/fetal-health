@@ -3,31 +3,32 @@
 from os.path import exists
 import logging as log
 import matplotlib.pyplot as plt
+from _typing import AxisValues
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
 FIGURE_DIR = "reports/figures/"
 
 
-def plot_scatter(x_values, y_values) -> None:
+def plot_scatter(x_values: AxisValues, y_values: AxisValues) -> None:
     """Generates a scatter plot with given data.
 
     Args:
-        x (ndarray[float]): Data along the x-axis.
-        y (ndarray[float]): Data along the y-axis.
+        x (AxisValues): Data along the x-axis.
+        y (AxisValues): Data along the y-axis.
     """
 
     plt.scatter(x_values, y_values)
     plt.show()
 
 
-def plot_hist(x_values, filename=None) -> None:
+def plot_hist(x_values: list[AxisValues], filename: str = None) -> None:
     """Generates histogram(s) from given values.
 
     Optionally can save it to the reports/figures directory.
 
     Args:
-        x_values (list[list[float]]): A matrix of values.
+        x_values (list[AxisValues]): A matrix of values.
         filename (str, optional): The name of the figure. Defaults to None.
     """
 

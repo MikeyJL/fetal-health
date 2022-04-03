@@ -26,7 +26,7 @@ def preview_raw() -> None:
     print(raw_df.head())
 
 
-def get_cols(features=None, as_df=False) -> GetColsValue:
+def get_cols(features: list[str] = None, as_df: bool = False) -> GetColsValue:
     """Gets the specified columns or returns the entire dataFrame.
 
     Args:
