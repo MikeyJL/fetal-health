@@ -28,10 +28,12 @@ def explore_options() -> None:
     print_menu(menu_type="Explore")
     explore_option = get_option()
     if explore_option == 1:
-        baseline_subplots()
+        preview_raw()
     elif explore_option == 2:
-        pass
+        baseline_subplots()
     elif explore_option == 3:
+        pass
+    elif explore_option == 4:
         pass
 
 
@@ -41,8 +43,6 @@ if __name__ == "__main__":
         print_menu()
         option = get_option()
         if option == 1:
-            preview_raw()
-        elif option == 2:
             explore_options()
-        elif option == 3:
+        elif option == 2:
             break

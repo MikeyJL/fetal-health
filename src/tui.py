@@ -15,12 +15,12 @@ TITLE = """
 # pylint: enable="anomalous-backslash-in-string"
 
 MAIN_MENU_OPTIONS = [
-    "Preview dataset",
     "Expore dataset",
     "Exit",
 ]
 
 DATA_EXPLORATION_MENU = [
+    "Dataset overview",
     "Show group baseline value historgram subplot",
     "Show individual group baseline value histogram",
     "Back to Main Menu",
