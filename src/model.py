@@ -6,7 +6,7 @@ from sklearn.tree import DecisionTreeClassifier
 def decision_tree_predict(
     X: list[list[float]], y: list[float], values: list[list[float]]
 ) -> None:
-    """_summary_
+    """Uses a decision tree to classify an input.
 
     Args:
         X (list[list[float]]): Input data which is 2D.
