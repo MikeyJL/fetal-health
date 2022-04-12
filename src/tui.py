@@ -16,7 +16,7 @@ TITLE: str = """
 # pylint: enable="anomalous-backslash-in-string"
 
 MAIN_MENU_OPTIONS: Menu = [
-    "Expore dataset",
+    "Explore dataset",
     "Exit",
 ]
 
