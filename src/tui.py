@@ -17,6 +17,7 @@ TITLE: str = """
 
 MAIN_MENU_OPTIONS: Menu = [
     "Explore dataset",
+    "Make prediction",
     "Exit",
 ]
 

@@ -3,6 +3,7 @@
 from process import preview_raw, get_cols
 from visualise import plot_hist
 from tui import print_title, print_menu, get_option
+from model import decision_tree_predict
 from _typing import GetColsValue, AxisValues
 
 
@@ -45,5 +46,7 @@ if __name__ == "__main__":
         option: int = get_option()
         if option == 1:
             explore_options()
-        elif option == 2:
+        if option == 2:
+            decision_tree_predict([[1], [2], [3]], [10, 20, 30], [[23]])
+        elif option == 3:
             break
