@@ -28,6 +28,11 @@ DATA_EXPLORATION_MENU: Menu = [
     "Back to Main Menu",
 ]
 
+MODEL_MENU: Menu = [
+    "Evaluate features",
+    "Back to Main Menu",
+]
+
 
 def print_title() -> None:
     """Prints the Fetal Health title."""
@@ -53,7 +58,9 @@ def __get_menu(menu_type: str) -> Menu:
 
     if menu_type == "Main":
         return MAIN_MENU_OPTIONS
-    return DATA_EXPLORATION_MENU
+    if menu_type == "Explore":
+        return DATA_EXPLORATION_MENU
+    return MODEL_MENU
 
 
 def print_menu(menu_type: str = "Main") -> None:
