@@ -17,14 +17,13 @@ TITLE: str = """
 
 MAIN_MENU_OPTIONS: Menu = [
     "Explore dataset",
-    "Make prediction",
+    "Build model and make predictions",
     "Exit",
 ]
 
 DATA_EXPLORATION_MENU: Menu = [
     "Dataset overview",
     "Show group baseline value historgram subplot",
-    "Show individual group baseline value histogram",
     "Back to Main Menu",
 ]
 
