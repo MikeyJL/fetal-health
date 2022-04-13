@@ -2,6 +2,7 @@
 
 from os.path import exists
 import logging as log
+from typing import Any
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import Figure, Axes
 from _typing import AxisValues
@@ -9,18 +10,6 @@ from _typing import AxisValues
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
 FIGURE_DIR = "reports/figures/"
-
-
-def plot_scatter(x_values: AxisValues, y_values: AxisValues) -> None:
-    """Generates a scatter plot with given data.
-
-    Args:
-        x (AxisValues): Data along the x-axis.
-        y (AxisValues): Data along the y-axis.
-    """
-
-    plt.scatter(x_values, y_values)
-    plt.show()
 
 
 def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
@@ -55,4 +44,28 @@ def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
             else "Figure already exists."
         )
 
+    plt.show()
+
+
+def simple_plot(
+    x_values: Any, y_values: Any, title: str, x_label: str, y_label: str
+) -> None:
+    """Creates a simple line plot.
+
+    Args:
+        x_values (Any): X axis values.
+        y_values (Any): Y axis values.
+        title (str): Title for the figure.
+        x_label (str): X axis label.
+        y_label (str): Y axis label.
+    """
+
+    fig: Figure
+    ax: Axes
+
+    fig, ax = plt.subplots(1, 1, figsize=(12, 9))
+    fig.suptitle(title)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    plt.plot(x_values, y_values)
     plt.show()

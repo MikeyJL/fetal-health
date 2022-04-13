@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
 from process import get_cols
+from visualise import simple_plot
 
 
 def eval_features() -> None:
@@ -32,6 +33,14 @@ def eval_features() -> None:
     rfecv.fit(X_train_scaled, y_train)
     print(f"Optional number of features: {rfecv.n_features_}")
     print(f"Selected features: {', '.join(X_train.columns[rfecv.support_])}")
+
+    simple_plot(
+        x_values=range(1, len(rfecv.grid_scores_) + 1),
+        y_values=rfecv.grid_scores_,
+        title="Recursive feature elimination with cross-validation",
+        x_label="Number of features selected",
+        y_label="Cross validation score (accuracy)",
+    )
 
 
 def decision_tree_predict(
