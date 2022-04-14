@@ -9,13 +9,13 @@ from _typing import AxisValues
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
-FIGURE_DIR = "reports/figures/"
+FIGURE_DIR = "figures/"
 
 
 def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
     """Generates histogram(s) from given values.
 
-    Optionally can save it to the reports/figures directory.
+    Optionally can save it to the figures directory.
 
     Args:
         x_values (list[AxisValues]): A matrix of values.
@@ -39,9 +39,7 @@ def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
             plt.savefig(f"{FIGURE_DIR}{filename}")
 
         log.info(
-            "Figure saved to reports/figures"
-            if not figure_exists
-            else "Figure already exists."
+            "Figure saved to figures" if not figure_exists else "Figure already exists."
         )
 
     plt.show()
