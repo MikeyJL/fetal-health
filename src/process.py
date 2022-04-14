@@ -12,7 +12,7 @@ from _typing import GetColsValue
 def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
-    raw_df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
+    raw_df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
     print_heading("Features and Data Types")
     print(raw_df.dtypes)
@@ -39,7 +39,7 @@ def get_cols(features: list[str] | None = None, as_df: bool = False) -> GetColsV
         Dataframe: A pandas dataframe with selected features.
     """
 
-    raw_df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
+    raw_df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
     if as_df:
         return raw_df[features or list(raw_df)]
