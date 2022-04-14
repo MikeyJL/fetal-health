@@ -29,6 +29,7 @@ DATA_EXPLORATION_MENU: Menu = [
 
 MODEL_MENU: Menu = [
     "Evaluate features",
+    "Train model",
     "Back to Main Menu",
 ]
 

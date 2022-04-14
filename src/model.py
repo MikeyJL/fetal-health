@@ -2,10 +2,10 @@
 
 from pandas import DataFrame
 from sklearn.feature_selection import RFECV
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.neural_network import MLPClassifier
 
 from process import get_cols
 from visualise import simple_plot
@@ -43,19 +43,24 @@ def eval_features() -> None:
     )
 
 
-def decision_tree_predict(
-    X: list[list[float]], y: list[float], values: list[list[float]]
-) -> None:
-    """Uses a decision tree to classify an input.
+def mlp_classify() -> None:
+    """Multilayer perceptron classifier."""
 
-    Args:
-        X (list[list[float]]): Input data which is 2D.
-        y (list[float]): Label data which is a vector.
-        values (list[list[float]]): The values used to predict.
-    """
+    # Data
+    raw_df: DataFrame = get_cols(as_df=True)
 
-    model = DecisionTreeClassifier()
-    model.fit(X, y)
-    prediction = model.predict(values)
+    # Features chosen from the evaluation
+    X_data: DataFrame = raw_df[
+        [
+            "accelerations",
+            "prolongued_decelerations",
+            "abnormal_short_term_variability",
+            "histogram_mean",
+        ]
+    ]
+    y_data: DataFrame = raw_df["fetal_health"]
 
-    print(prediction)
+    X_train, X_test, y_train, y_test = train_test_split(X_data, y_data)
+
+    model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
+    print(f"Score: {model.score(X_test, y_test)}")

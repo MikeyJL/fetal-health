@@ -3,7 +3,7 @@
 from process import preview_raw, get_cols
 from visualise import plot_hist
 from tui import print_title, print_menu, get_option
-from model import eval_features
+from model import eval_features, mlp_classify
 from _typing import GetColsValue, AxisValues
 
 
@@ -45,6 +45,8 @@ def model_options() -> None:
     if model_option == 1:
         eval_features()
     elif model_option == 2:
+        mlp_classify()
+    elif model_option == 3:
         pass
 
 
