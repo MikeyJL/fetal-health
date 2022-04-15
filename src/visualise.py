@@ -1,10 +1,14 @@
 """Visualises the data."""
 
 from dataclasses import dataclass
+from os import mkdir
 from os.path import exists
 import logging as log
 from typing import Any
+
+from pandas import DataFrame
 import matplotlib.pyplot as plt
+import dataframe_image as dfi
 from matplotlib.pyplot import Figure, Axes
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
@@ -24,12 +28,14 @@ class PlotParams:
         y_label: str,
         x_values: Any,
         y_values: Any | None = None,
+        desc: DataFrame | None = None,
     ) -> None:
         self.title: str = title
         self.x_label: str = x_label
         self.y_label: str = y_label
         self.x_values: Any = x_values
         self.y_values: Any | None = y_values
+        self.desc: DataFrame | None = desc
 
 
 def plot_hist(data: PlotParams, filename: str | None = None) -> None:
@@ -54,13 +60,31 @@ def plot_hist(data: PlotParams, filename: str | None = None) -> None:
     fig.supylabel(data.y_label)
 
     if filename is not None:
-        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
+        try:
+            mkdir(f"{FIGURE_DIR}{filename}")
+            log.info("%s directory created.", filename)
+        except OSError as e:
+            log.error(e)
+            log.info("%s directory already exists.", filename)
+
+        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}/${filename}.png")
+        stats_exists: bool = exists(f"{FIGURE_DIR}{filename}/${filename}-stats.png")
 
         if not figure_exists:
-            plt.savefig(f"{FIGURE_DIR}{filename}")
+            plt.savefig(f"{FIGURE_DIR}{filename}/{filename}.png")
+
+        if not stats_exists and data.desc is not None:
+            dfi.export(data.desc, f"{FIGURE_DIR}{filename}/{filename}-stats.png")
 
         log.info(
-            "Figure saved to figures" if not figure_exists else "Figure already exists."
+            "%s saved to figures" if not figure_exists else "%s already exists.",
+            filename.replace("_", " ").capitalize(),
+        )
+        log.info(
+            "%s stats saved to figures"
+            if not stats_exists
+            else "%s stats already exists.",
+            filename.replace("_", " ").capitalize(),
         )
 
     plt.show()
