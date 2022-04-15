@@ -1,6 +1,5 @@
 """Main runtime."""
 
-import logging as log
 from os.path import exists
 
 import dataframe_image as dfi
@@ -12,27 +11,15 @@ from model import eval_features, mlp_classify
 from _typing import GetColsValue, AxisValues
 
 
-log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
-
-
-def selected_features_subplots() -> None:
-    """Creates a subplot and saves the figure.
+def distribution_subplots() -> None:
+    """Creates a subplot of distributions and saves the figure.
 
     Pulls out the fetal health and creates subgroups of historgrams.
     """
 
-    df: GetColsValue = get_cols(
-        [
-            "accelerations",
-            "prolongued_decelerations",
-            "abnormal_short_term_variability",
-            "histogram_mean",
-            "fetal_health",
-        ],
-        as_df=True,
-    )
+    df: GetColsValue = get_cols(as_df=True)
 
-    filename: str = "selected-features-stats"
+    filename: str = "features-stats"
 
     if filename is not None:
         figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
@@ -42,10 +29,6 @@ def selected_features_subplots() -> None:
                 df.drop(columns=["fetal_health"], axis=1).describe(),
                 f"{FIGURE_DIR}{filename}.png",
             )
-        log.info(
-            "%s saved to figures" if not figure_exists else "%s already exists.",
-            filename.replace("_", " ").capitalize(),
-        )
 
     for column in df.drop(columns=["fetal_health"], axis=1).columns:
         X: list[AxisValues] = [
@@ -60,6 +43,7 @@ def selected_features_subplots() -> None:
             y_label="Frequency",
             x_values=X,
             desc=df[[column]].describe(),
+            show=True,
         )
         plot_hist(
             data,
@@ -75,7 +59,7 @@ def explore_options() -> None:
     if explore_option == 1:
         preview_raw()
     elif explore_option == 2:
-        selected_features_subplots()
+        distribution_subplots()
     elif explore_option == 3:
         pass
 
