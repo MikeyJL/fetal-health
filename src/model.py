@@ -43,7 +43,7 @@ def eval_features() -> None:
     )
     simple_plot(
         data=data,
-        filename="feature_eval_plot.png",
+        filename="feature-eval-plot.png",
     )
 
 

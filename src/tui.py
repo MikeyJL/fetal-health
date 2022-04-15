@@ -23,7 +23,7 @@ MAIN_MENU_OPTIONS: Menu = [
 
 DATA_EXPLORATION_MENU: Menu = [
     "Dataset overview",
-    "Show group baseline value historgram subplot",
+    "Show group historgram subplot with evaluated features",
     "Back to Main Menu",
 ]
 

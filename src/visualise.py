@@ -6,7 +6,6 @@ import logging as log
 from typing import Any
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import Figure, Axes
-from _typing import AxisValues
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
@@ -19,34 +18,40 @@ class PlotParams:
 
     # pylint: disable=too-many-arguments
     def __init__(
-        self, x_values: Any, y_values: Any, title: str, x_label: str, y_label: str
+        self,
+        title: str,
+        x_label: str,
+        y_label: str,
+        x_values: Any,
+        y_values: Any | None = None,
     ) -> None:
-        self.x_values: Any = x_values
-        self.y_values: Any = y_values
         self.title: str = title
         self.x_label: str = x_label
         self.y_label: str = y_label
+        self.x_values: Any = x_values
+        self.y_values: Any | None = y_values
 
 
-def plot_hist(x_values: list[AxisValues], filename: str | None = None) -> None:
+def plot_hist(data: PlotParams, filename: str | None = None) -> None:
     """Generates histogram(s) from given values.
 
     Optionally can save it to the figures directory.
 
     Args:
-        x_values (list[AxisValues]): A matrix of values.
+        data (PlotParams): Data for the plot.
         filename (str, optional): The name of the figure. Defaults to None.
     """
 
     fig: Figure
     axs: Axes
     index: int
-    x: AxisValues
 
-    fig, axs = plt.subplots(1, len(x_values), figsize=(12, 9))
-    for index, x in enumerate(x_values):
+    fig, axs = plt.subplots(1, len(data.x_values), figsize=(12, 9))
+    for index, x in enumerate(data.x_values):
         axs[index].hist(x)
-    fig.suptitle("Histogram plot")
+    fig.suptitle(data.title)
+    fig.supxlabel(data.x_label)
+    fig.supylabel(data.y_label)
 
     if filename is not None:
         figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
@@ -69,7 +74,7 @@ def simple_plot(
 
     Args:
         data (PlotParams): Data for the plot.
-        filename (str): Save the file as specified name.
+        filename (str, optional): The name of the figure. Defaults to None.
     """
 
     fig: Figure
