@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
 
 from process import get_cols
-from visualise import simple_plot
+from visualise import PlotParams, simple_plot
 
 
 def eval_features() -> None:
@@ -34,12 +34,16 @@ def eval_features() -> None:
     print(f"Optional number of features: {rfecv.n_features_}")
     print(f"Selected features: {', '.join(X_train.columns[rfecv.support_])}")
 
-    simple_plot(
+    data = PlotParams(
         x_values=range(1, len(rfecv.grid_scores_) + 1),
         y_values=rfecv.grid_scores_,
         title="Recursive feature elimination with cross-validation",
         x_label="Number of features selected",
         y_label="Cross validation score (accuracy)",
+    )
+    simple_plot(
+        data=data,
+        filename="feature_eval_plot.png",
     )
 
 
