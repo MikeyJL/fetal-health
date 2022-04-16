@@ -11,7 +11,7 @@ from pandas import DataFrame
 from scipy.stats import shapiro, f_oneway, kruskal
 
 from tui import print_heading
-from visualise import FIGURE_DIR, PlotParams, plot_hist
+from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist
 
 
 def preview_raw() -> None:
@@ -51,7 +51,7 @@ def distribution_subplots() -> None:
 
     df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
-    for column in df.drop(columns=["fetal_health"], axis=1).columns:
+    for column in df.drop(columns=["fetal_health"], axis=1)[["baseline value"]].columns:
         # Subsets in to 3 fetal health categories for each column
         X = [
             df[df["fetal_health"] == 1][column].values,
@@ -90,9 +90,34 @@ def distribution_subplots() -> None:
             )
             df_describe = pd.concat([df_describe, k_wallis_row])
 
-        # Sets up plotting data for histogram subplots for fetal_health
+        # Sets up plotting data for boxplot.
         data = PlotParams(
-            title=f"Histogram distribution of {column.replace('_', ' ')}",
+            title=f"Distribution of {column.replace('_', ' ')}",
+            y_label=f"{column.replace('_', ' ').capitalize()}",
+            x_values=[df[column].values],
+            show=False,
+        )
+        box_plot(
+            data,
+            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+        )
+
+        # Sets up plotting data for group boxplot.
+        data = PlotParams(
+            title=f"Group distribution of {column.replace('_', ' ')}",
+            x_labels=["Normal", "Suspect", "Pathological"],
+            y_label=f"{column.replace('_', ' ').capitalize()}",
+            x_values=X,
+            show=False,
+        )
+        box_plot(
+            data,
+            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+        )
+
+        # Sets up plotting data for histogram for fetal_health
+        data = PlotParams(
+            title=f"Distribution of {column.replace('_', ' ')}",
             x_label=f"{column.replace('_', ' ').capitalize()}",
             y_label="Frequency",
             x_values=[df[column].values],
@@ -105,7 +130,7 @@ def distribution_subplots() -> None:
 
         # Sets up plotting data for histogram subplots for fetal_health
         data = PlotParams(
-            title=f"Histogram subplot distribution of {column.replace('_', ' ')} with fetal health categories",
+            title=f"Subplot distribution of {column.replace('_', ' ')} with fetal health categories",
             x_label=f"{column.replace('_', ' ').capitalize()}",
             x_labels=["Normal", "Suspect", "Pathological"],
             y_label="Frequency",
