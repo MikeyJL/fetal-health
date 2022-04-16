@@ -51,7 +51,7 @@ def distribution_subplots() -> None:
 
     df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
-    for column in df.drop(columns=["fetal_health"], axis=1)[["baseline value"]].columns:
+    for column in df.drop(columns=["fetal_health"], axis=1).columns:
         # Subsets in to 3 fetal health categories for each column
         X = [
             df[df["fetal_health"] == 1][column].values,
@@ -92,6 +92,19 @@ def distribution_subplots() -> None:
 
         # Sets up plotting data for histogram subplots for fetal_health
         data = PlotParams(
+            title=f"Histogram distribution of {column.replace('_', ' ')}",
+            x_label=f"{column.replace('_', ' ').capitalize()}",
+            y_label="Frequency",
+            x_values=[df[column].values],
+            show=False,
+        )
+        plot_hist(
+            data,
+            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+        )
+
+        # Sets up plotting data for histogram subplots for fetal_health
+        data = PlotParams(
             title=f"Histogram subplot distribution of {column.replace('_', ' ')} with fetal health categories",
             x_label=f"{column.replace('_', ' ').capitalize()}",
             x_labels=["Normal", "Suspect", "Pathological"],
@@ -102,5 +115,5 @@ def distribution_subplots() -> None:
         )
         plot_hist(
             data,
-            filename=f"{column.replace('_', '-')}",
+            filename=f"{column.replace('_', '-').replace(' ', '-')}",
         )
