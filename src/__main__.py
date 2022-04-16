@@ -1,54 +1,9 @@
 """Main runtime."""
 
-from os.path import exists
 
-import dataframe_image as dfi
-
-from process import preview_raw, get_cols
-from visualise import PlotParams, plot_hist, FIGURE_DIR
+from explore import preview_raw, distribution_subplots
 from tui import print_title, print_menu, get_option
 from model import eval_features, mlp_classify
-from _typing import GetColsValue, AxisValues
-
-
-def distribution_subplots() -> None:
-    """Creates a subplot of distributions and saves the figure.
-
-    Pulls out the fetal health and creates subgroups of historgrams.
-    """
-
-    df: GetColsValue = get_cols(as_df=True)
-
-    filename: str = "features-stats"
-
-    if filename is not None:
-        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
-
-        if not figure_exists:
-            dfi.export(
-                df.drop(columns=["fetal_health"], axis=1).describe(),
-                f"{FIGURE_DIR}{filename}.png",
-            )
-
-    for column in df.drop(columns=["fetal_health"], axis=1).columns:
-        X: list[AxisValues] = [
-            df[df["fetal_health"] == 1][column].values,
-            df[df["fetal_health"] == 2][column].values,
-            df[df["fetal_health"] == 3][column].values,
-        ]
-
-        data = PlotParams(
-            title=f"Histogram distribution of {column.replace('_', ' ')}",
-            x_label=f"{column.replace('_', ' ').capitalize()}",
-            y_label="Frequency",
-            x_values=X,
-            desc=df[[column]].describe(),
-            show=True,
-        )
-        plot_hist(
-            data,
-            f"{column.replace('_', '-')}",
-        )
 
 
 def explore_options() -> None:
