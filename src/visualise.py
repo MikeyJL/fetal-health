@@ -170,10 +170,8 @@ def box_plot(
     fig.suptitle(data.title)
     ax.set_ylabel(data.y_label)
     ax.yaxis.grid(True)
-    if data.x_labels is not None:
-        ax.set_xticks([i + 1 for i in range(len(data.x_labels))], labels=data.x_labels)
 
-    plt.boxplot(data.x_values)
+    plt.boxplot(data.x_values, labels=data.x_labels)
 
     # Save file logic
     if filename is not None:
