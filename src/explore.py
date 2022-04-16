@@ -90,10 +90,11 @@ def distribution_subplots() -> None:
             )
             df_describe = pd.concat([df_describe, k_wallis_row])
 
-        # Sets up plotting data for histogram
+        # Sets up plotting data for histogram subplots for fetal_health
         data = PlotParams(
-            title=f"Histogram distribution of {column.replace('_', ' ')}",
+            title=f"Histogram subplot distribution of {column.replace('_', ' ')} with fetal health categories",
             x_label=f"{column.replace('_', ' ').capitalize()}",
+            x_labels=["Normal", "Suspect", "Pathological"],
             y_label="Frequency",
             x_values=X,
             desc=df_describe,

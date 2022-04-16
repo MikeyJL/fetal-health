@@ -16,6 +16,7 @@ log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 FIGURE_DIR = "figures/"
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass
 class PlotParams:
     """Generic plot parameters for visualisation."""
@@ -28,6 +29,7 @@ class PlotParams:
         y_label: str,
         x_values: Any,
         y_values: Any | None = None,
+        x_labels: list[str] | None = None,
         desc: DataFrame | None = None,
         show: bool = False,
     ) -> None:
@@ -36,6 +38,7 @@ class PlotParams:
         self.y_label: str = y_label
         self.x_values: Any = x_values
         self.y_values: Any | None = y_values
+        self.x_labels: list[str] | None = x_labels
         self.desc: DataFrame | None = desc
         self.show: bool = show
 
@@ -56,7 +59,12 @@ def plot_hist(data: PlotParams, filename: str | None = None) -> None:
 
     fig, axs = plt.subplots(1, len(data.x_values), figsize=(12, 9))
     for index, x in enumerate(data.x_values):
-        axs[index].hist(x)
+        if len(data.x_values) > 1:
+            axs[index].hist(x)
+        else:
+            axs.hist(x)
+        if data.x_labels is not None:
+            axs[index].set_xlabel(data.x_labels[index])
     fig.suptitle(data.title)
     fig.supxlabel(data.x_label)
     fig.supylabel(data.y_label)
