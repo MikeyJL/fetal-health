@@ -8,7 +8,7 @@ from os.path import exists
 import dataframe_image as dfi
 import pandas as pd
 from pandas import DataFrame
-from scipy.stats import shapiro
+from scipy.stats import shapiro, f_oneway, kruskal
 
 from tui import print_heading
 from visualise import FIGURE_DIR, PlotParams, plot_hist
@@ -62,16 +62,33 @@ def distribution_subplots() -> None:
         # Statistical analysis with test for normality
         normality = shapiro(df[column].values)
         df_describe = df[[column]].describe()
-        df_describe = pd.concat(
-            [
-                df_describe,
-                pd.DataFrame(
-                    [[normality.statistic, normality.pvalue]],
-                    columns=[column],
-                    index=pd.Index(["shapiro-statistic", "shapiro-p"]),
-                ),
-            ]
+        normality_row = pd.DataFrame(
+            [[normality.statistic], [normality.pvalue]],
+            columns=[column],
+            index=pd.Index(["shapiro-statistic", "shapiro-p"]),
         )
+
+        df_describe = pd.concat([df_describe, normality_row])
+
+        # Parametric test
+        if normality.pvalue > 0.05:
+            anova = f_oneway(X[0], X[1], X[2])
+            anova_row = pd.DataFrame(
+                [[anova.statistic], [anova.pvalue]],
+                columns=[column],
+                index=pd.Index(["anova-statistic", "anova-p"]),
+            )
+            df_describe = pd.concat([df_describe, anova_row])
+
+        # Non-parametric test
+        else:
+            k_wallis = kruskal(X[0], X[1], X[2])
+            k_wallis_row = pd.DataFrame(
+                [[k_wallis.statistic], [k_wallis.pvalue]],
+                columns=[column],
+                index=pd.Index(["k-wallis-statistic", "k-wallis-p"]),
+            )
+            df_describe = pd.concat([df_describe, k_wallis_row])
 
         # Sets up plotting data for histogram
         data = PlotParams(
