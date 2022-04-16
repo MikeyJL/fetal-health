@@ -17,13 +17,13 @@ TITLE: str = """
 
 MAIN_MENU_OPTIONS: Menu = [
     "Explore dataset",
-    "Build model and make predictions",
+    "Model and prediction",
     "Exit",
 ]
 
 DATA_EXPLORATION_MENU: Menu = [
     "Dataset overview",
-    "Show group historgram subplots",
+    "Generate histogram and boxplots for each feature",
     "Back to Main Menu",
 ]
 
