@@ -77,11 +77,15 @@ def plot_hist(data: PlotParams, filename: str | None = None) -> None:
             log.info("%s directory already exists.", filename)
             log.error(e)
 
-        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}/${filename}.png")
-        stats_exists: bool = exists(f"{FIGURE_DIR}{filename}/${filename}-stats.png")
+        figure_exists: bool = exists(
+            f"{FIGURE_DIR}{filename}/{filename}{'-subplot' if len(data.x_values) > 1 else ''}.png"
+        )
+        stats_exists: bool = exists(f"{FIGURE_DIR}{filename}/{filename}-stats.png")
 
         if not figure_exists:
-            plt.savefig(f"{FIGURE_DIR}{filename}/{filename}.png")
+            plt.savefig(
+                f"{FIGURE_DIR}{filename}/{filename}{'-subplot' if len(data.x_values) > 1 else ''}.png"
+            )
 
         if not stats_exists and data.desc is not None:
             dfi.export(data.desc, f"{FIGURE_DIR}{filename}/{filename}-stats.png")
