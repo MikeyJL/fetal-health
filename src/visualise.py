@@ -57,19 +57,29 @@ def plot_hist(data: PlotParams, filename: str | None = None) -> None:
     axs: Axes
     index: int
 
+    # Prepares subplots
     fig, axs = plt.subplots(1, len(data.x_values), figsize=(12, 9))
+
+    # For each subset, plot on its own axis
     for index, x in enumerate(data.x_values):
         if len(data.x_values) > 1:
             axs[index].hist(x)
         else:
             axs.hist(x)
+
+        # Add subplot labels
         if data.x_labels is not None:
             axs[index].set_xlabel(data.x_labels[index])
+
+    # Main figure titles and labels
     fig.suptitle(data.title)
     fig.supxlabel(data.x_label)
     fig.supylabel(data.y_label)
 
+    # Save file logic
     if filename is not None:
+
+        # Check if the column specific directory exists
         try:
             mkdir(f"{FIGURE_DIR}{filename}")
             log.info("%s directory created.", filename)
@@ -77,19 +87,23 @@ def plot_hist(data: PlotParams, filename: str | None = None) -> None:
             log.info("%s directory already exists.", filename)
             log.error(e)
 
+        # Check if figure and stats images already exists
         figure_exists: bool = exists(
             f"{FIGURE_DIR}{filename}/{filename}{'-subplot' if len(data.x_values) > 1 else ''}.png"
         )
         stats_exists: bool = exists(f"{FIGURE_DIR}{filename}/{filename}-stats.png")
 
+        # Saves the figure if not already exists
         if not figure_exists:
             plt.savefig(
                 f"{FIGURE_DIR}{filename}/{filename}{'-subplot' if len(data.x_values) > 1 else ''}.png"
             )
 
+        # Saves the stats table if not already exists
         if not stats_exists and data.desc is not None:
             dfi.export(data.desc, f"{FIGURE_DIR}{filename}/{filename}-stats.png")
 
+    # Shows plot if specified
     if data.show:
         plt.show()
 
@@ -108,17 +122,24 @@ def simple_plot(
     fig: Figure
     ax: Axes
 
+    # Prepares plot
     fig, ax = plt.subplots(1, 1, figsize=(12, 9))
+
+    # Sets figure title and labels
     fig.suptitle(data.title)
     ax.set_xlabel(data.x_label)
     ax.set_ylabel(data.y_label)
+
     plt.plot(data.x_values, data.y_values)
 
+    # Save file logic
     if filename is not None:
         figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
 
+        # Saves the figure if not already exists
         if not figure_exists:
             plt.savefig(f"{FIGURE_DIR}{filename}")
 
+    # Shows plot if specified
     if data.show:
         plt.show()

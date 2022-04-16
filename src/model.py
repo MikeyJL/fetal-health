@@ -34,6 +34,7 @@ def eval_features() -> None:
     print(f"Optional number of features: {rfecv.n_features_}")
     print(f"Selected features: {', '.join(X_train.columns[rfecv.support_])}")
 
+    # Create a simple line plot
     data = PlotParams(
         x_values=range(1, len(rfecv.grid_scores_) + 1),
         y_values=rfecv.grid_scores_,
@@ -64,7 +65,9 @@ def mlp_classify() -> None:
     ]
     y_data: DataFrame = df["fetal_health"]
 
+    # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(X_data, y_data)
 
+    # Train model and score
     model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
     print(f"Score: {model.score(X_test, y_test)}")
