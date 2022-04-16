@@ -66,9 +66,9 @@ def distribution_subplots() -> None:
             [
                 df_describe,
                 pd.DataFrame(
-                    [[normality.statistic]],
+                    [[normality.statistic, normality.pvalue]],
                     columns=[column],
-                    index=pd.Index(["shapiro"]),
+                    index=pd.Index(["shapiro-statistic", "shapiro-p"]),
                 ),
             ]
         )
@@ -84,5 +84,5 @@ def distribution_subplots() -> None:
         )
         plot_hist(
             data,
-            f"{column.replace('_', '-')}",
+            filename=f"{column.replace('_', '-')}",
         )
