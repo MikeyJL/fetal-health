@@ -17,19 +17,30 @@ from visualise import FIGURE_DIR, PlotParams, plot_hist
 def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
-    raw_df: DataFrame = pd.read_csv("data/fetal_health.csv")
+    df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
     print_heading("Features and Data Types")
-    print(raw_df.dtypes)
+    print(df.dtypes)
 
     print_heading("Null Count")
-    print(raw_df.isnull().sum())
+    print(df.isnull().sum())
 
     print_heading("Unique Value Count")
-    print(raw_df.nunique())
+    print(df.nunique())
 
     print_heading("Summary")
-    print(raw_df.head())
+    print(df.head())
+
+    # Saves overall as an image if not exist already
+    filename: str = "dataset-statistics"
+    if filename is not None:
+        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
+
+        if not figure_exists:
+            dfi.export(
+                df.drop(columns=["fetal_health"], axis=1).describe(),
+                f"{FIGURE_DIR}{filename}.png",
+            )
 
 
 def distribution_subplots() -> None:
@@ -40,18 +51,8 @@ def distribution_subplots() -> None:
 
     df: DataFrame = pd.read_csv("data/fetal_health.csv")
 
-    filename: str = "features-stats"
-
-    if filename is not None:
-        figure_exists: bool = exists(f"{FIGURE_DIR}{filename}")
-
-        if not figure_exists:
-            dfi.export(
-                df.drop(columns=["fetal_health"], axis=1).describe(),
-                f"{FIGURE_DIR}{filename}.png",
-            )
-
     for column in df.drop(columns=["fetal_health"], axis=1)[["baseline value"]].columns:
+        # Subsets in to 3 fetal health categories for each column
         X = [
             df[df["fetal_health"] == 1][column].values,
             df[df["fetal_health"] == 2][column].values,
@@ -72,6 +73,7 @@ def distribution_subplots() -> None:
             ]
         )
 
+        # Sets up plotting data for histogram
         data = PlotParams(
             title=f"Histogram distribution of {column.replace('_', ' ')}",
             x_label=f"{column.replace('_', ' ').capitalize()}",
