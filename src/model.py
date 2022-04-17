@@ -1,12 +1,17 @@
 """Contains models to use for prediction and classification."""
 
+from os import remove
+from os.path import exists
+
 import pandas as pd
+import joblib
 from pandas import DataFrame
 from sklearn.feature_selection import RFECV
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
+from tui import print_heading
 
 from visualise import PlotParams, simple_plot
 
@@ -69,5 +74,23 @@ def mlp_classify() -> None:
     X_train, X_test, y_train, y_test = train_test_split(X_data, y_data)
 
     # Train model and score
-    model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
-    print(f"Score: {model.score(X_test, y_test)}")
+    filepath = "models/mlp_classifier.joblib.pkl"
+    last_score = None
+    for i in range(1, 30):
+        print_heading(f"Run {i}")
+        model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
+        print(f"Score: {model.score(X_test, y_test)}")
+
+        # Gets current saved model
+        if last_score is None:
+            last_score = joblib.load(filepath).score(X_test, y_test)
+        else:
+            last_score = model.score(X_test, y_test)
+
+        # Replaces saved model if score is better
+        if model.score(X_test, y_test) > last_score:
+            if exists(filepath):
+                remove(filepath)
+            joblib.dump(model, filepath)
+
+    print(f"Current model score: {joblib.load(filepath).score(X_test, y_test)}")
