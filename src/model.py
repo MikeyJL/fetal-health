@@ -15,7 +15,7 @@ def eval_features() -> None:
     """Evaluates features of the dataset against fetal_health."""
 
     # Data
-    df: DataFrame = pd.read_csv("data/fetal_health.csv")
+    df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
     X_train: DataFrame = df.drop(["fetal_health"], axis=1)
     y_train: DataFrame = df["fetal_health"]
 
@@ -52,7 +52,7 @@ def mlp_classify() -> None:
     """Multilayer perceptron classifier."""
 
     # Data
-    df: DataFrame = pd.read_csv("data/fetal_health.csv")
+    df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     # Features chosen from the evaluation
     X_data: DataFrame = df[

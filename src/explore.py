@@ -17,7 +17,7 @@ from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist
 def preview_raw() -> None:
     """Generates a head preview of the dataset."""
 
-    df: DataFrame = pd.read_csv("data/fetal_health.csv")
+    df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     print_heading("Features and Data Types")
     print(df.dtypes)
@@ -49,7 +49,7 @@ def distribution_subplots() -> None:
     Pulls out the fetal health and creates subgroups of historgrams.
     """
 
-    df: DataFrame = pd.read_csv("data/fetal_health.csv")
+    df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     for column in df.drop(columns=["fetal_health"], axis=1).columns:
         # Subsets in to 3 fetal health categories for each column
