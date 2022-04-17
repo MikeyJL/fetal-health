@@ -1,0 +1,13 @@
+,light_decelerations
+count,2126.0
+mean,0.001889463781749765
+std,0.0029602085768095855
+min,0.0
+25%,0.0
+50%,0.0
+75%,0.003
+max,0.015
+shapiro-statistic,0.6983240246772766
+shapiro-p,0.0
+k-wallis-statistic,114.35309491902628
+k-wallis-p,1.4741475128762446e-25

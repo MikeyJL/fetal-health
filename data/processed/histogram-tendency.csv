@@ -1,0 +1,13 @@
+,histogram_tendency
+count,2126.0
+mean,0.32031984948259645
+std,0.6108286300552916
+min,-1.0
+25%,0.0
+50%,0.0
+75%,1.0
+max,1.0
+shapiro-statistic,0.7562841176986694
+shapiro-p,0.0
+k-wallis-statistic,71.3414519134621
+k-wallis-p,3.2240409661107275e-16

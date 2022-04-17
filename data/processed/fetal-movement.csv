@@ -1,0 +1,13 @@
+,fetal_movement
+count,2126.0
+mean,0.00948071495766698
+std,0.046665844465484926
+min,0.0
+25%,0.0
+50%,0.0
+75%,0.003
+max,0.481
+shapiro-statistic,0.1908588409423828
+shapiro-p,0.0
+k-wallis-statistic,27.79289064808078
+k-wallis-p,9.222538517199073e-07

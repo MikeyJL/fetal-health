@@ -14,7 +14,6 @@ from matplotlib.pyplot import Figure, Axes
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 
 FIGURE_DIR = "figures/"
-PROCESSED_DATA_DIR = "data/processed/"
 
 
 # pylint: disable=too-many-instance-attributes

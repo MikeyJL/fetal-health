@@ -3,7 +3,9 @@
 Requires: pandas.
 """
 
+import logging as log
 from os.path import exists
+from pathlib import Path
 
 import dataframe_image as dfi
 import pandas as pd
@@ -12,6 +14,26 @@ from scipy.stats import shapiro, f_oneway, kruskal
 
 from tui import print_heading
 from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist
+
+log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
+PROCESSED_DATA_DIR = "data/processed/"
+
+
+def save_csv(data: DataFrame, filename: str) -> None:
+    """Saves DataFrame as a CSV file.
+
+    Args:
+        data (DataFrame): DataFrame to save.
+        filename (str): The name of the file.
+    """
+
+    # Check if the csv already exists
+    data_exists: bool = exists(f"{PROCESSED_DATA_DIR}{filename}.csv")
+
+    # Saves the csv if not already exists
+    if not data_exists:
+        filepath = Path(f"{PROCESSED_DATA_DIR}{filename}.csv")
+        data.to_csv(filepath)
 
 
 def preview_raw() -> None:
@@ -90,6 +112,9 @@ def distribution_subplots() -> None:
             )
             df_describe = pd.concat([df_describe, k_wallis_row])
 
+        # Saves statistical data to csv
+        save_csv(df_describe, filename=column.replace("_", "-").replace(" ", "-"))
+
         # Sets up plotting data for boxplot.
         data = PlotParams(
             title=f"Distribution of {column.replace('_', ' ')}",
@@ -99,7 +124,7 @@ def distribution_subplots() -> None:
         )
         box_plot(
             data,
-            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+            filename=column.replace("_", "-").replace(" ", "-"),
         )
 
         # Sets up plotting data for group boxplot.
@@ -112,7 +137,7 @@ def distribution_subplots() -> None:
         )
         box_plot(
             data,
-            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+            filename=column.replace("_", "-").replace(" ", "-"),
         )
 
         # Sets up plotting data for histogram
@@ -125,7 +150,7 @@ def distribution_subplots() -> None:
         )
         plot_hist(
             data,
-            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+            filename=column.replace("_", "-").replace(" ", "-"),
         )
 
         # Sets up plotting data for histogram subplots for fetal_health
@@ -140,5 +165,5 @@ def distribution_subplots() -> None:
         )
         plot_hist(
             data,
-            filename=f"{column.replace('_', '-').replace(' ', '-')}",
+            filename=column.replace("_", "-").replace(" ", "-"),
         )

@@ -1,0 +1,13 @@
+,abnormal_short_term_variability
+count,2126.0
+mean,46.99012229539041
+std,17.192813718571703
+min,12.0
+25%,32.0
+50%,49.0
+75%,61.0
+max,87.0
+shapiro-statistic,0.967643678188324
+shapiro-p,1.85682660472548e-21
+k-wallis-statistic,533.4423041848653
+k-wallis-p,1.460412156533107e-116

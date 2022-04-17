@@ -1,0 +1,13 @@
+,severe_decelerations
+count,2126.0
+mean,3.292568203198495e-06
+std,5.7299838918067855e-05
+min,0.0
+25%,0.0
+50%,0.0
+75%,0.0
+max,0.001
+shapiro-statistic,0.030301570892333984
+shapiro-p,0.0
+k-wallis-statistic,55.46349258965754
+k-wallis-p,9.041814868947249e-13

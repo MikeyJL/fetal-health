@@ -1,0 +1,13 @@
+,mean_value_of_long_term_variability
+count,2126.0
+mean,8.187629350893696
+std,5.628246604067883
+min,0.0
+25%,4.6
+50%,7.4
+75%,10.8
+max,50.7
+shapiro-statistic,0.9222332835197449
+shapiro-p,8.452661905541172e-32
+k-wallis-statistic,165.62352013280372
+k-wallis-p,1.0846998159478446e-36

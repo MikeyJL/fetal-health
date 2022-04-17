@@ -1,0 +1,13 @@
+,mean_value_of_short_term_variability
+count,2126.0
+mean,1.3327845719661335
+std,0.8832413341068256
+min,0.2
+25%,0.7
+50%,1.2
+75%,1.7
+max,7.0
+shapiro-statistic,0.8801469206809998
+shapiro-p,1.0772163569485937e-37
+k-wallis-statistic,383.3081018052113
+k-wallis-p,5.830465885354101e-84

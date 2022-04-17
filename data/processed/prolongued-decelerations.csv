@@ -1,0 +1,13 @@
+,prolongued_decelerations
+count,2126.0
+mean,0.00015851364063969897
+std,0.0005899475163513611
+min,0.0
+25%,0.0
+50%,0.0
+75%,0.0
+max,0.005
+shapiro-statistic,0.29630225896835327
+shapiro-p,0.0
+k-wallis-statistic,537.6690642261798
+k-wallis-p,1.7645995260419255e-117

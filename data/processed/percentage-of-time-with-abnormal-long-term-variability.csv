@@ -1,0 +1,13 @@
+,percentage_of_time_with_abnormal_long_term_variability
+count,2126.0
+mean,9.846660395108184
+std,18.396879675177722
+min,0.0
+25%,0.0
+50%,0.0
+75%,11.0
+max,91.0
+shapiro-statistic,0.6102185845375061
+shapiro-p,0.0
+k-wallis-statistic,496.06612391331305
+k-wallis-p,1.9081383611070573e-108

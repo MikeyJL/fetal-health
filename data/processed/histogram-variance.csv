@@ -1,0 +1,13 @@
+,histogram_variance
+count,2126.0
+mean,18.808090310442147
+std,28.977636008372432
+min,0.0
+25%,2.0
+50%,7.0
+75%,24.0
+max,269.0
+shapiro-statistic,0.6435577869415283
+shapiro-p,0.0
+k-wallis-statistic,228.5217733491264
+k-wallis-p,2.3830185327166554e-50

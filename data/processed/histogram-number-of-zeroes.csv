@@ -1,0 +1,13 @@
+,histogram_number_of_zeroes
+count,2126.0
+mean,0.3236124176857949
+std,0.7060593731515363
+min,0.0
+25%,0.0
+50%,0.0
+75%,0.0
+max,10.0
+shapiro-statistic,0.502704918384552
+shapiro-p,0.0
+k-wallis-statistic,12.194087814740076
+k-wallis-p,0.0022495076535161344
