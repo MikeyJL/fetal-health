@@ -10,7 +10,7 @@ from pathlib import Path
 import dataframe_image as dfi
 import pandas as pd
 from pandas import DataFrame
-from scipy.stats import shapiro, f_oneway, kruskal
+from scipy.stats import shapiro, f_oneway, kruskal, kurtosis
 
 from tui import print_heading
 from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist
@@ -111,6 +111,15 @@ def distribution_subplots() -> None:
                 index=pd.Index(["k-wallis-statistic", "k-wallis-p"]),
             )
             df_describe = pd.concat([df_describe, k_wallis_row])
+
+        # Kurtosis
+        kurt = kurtosis(df[column].values)
+        kurt_row = pd.DataFrame(
+            [kurt],
+            columns=[column],
+            index=pd.Index(["kurtosis"]),
+        )
+        df_describe = pd.concat([df_describe, kurt_row])
 
         # Saves statistical data to csv
         save_csv(df_describe, filename=column.replace("_", "-").replace(" ", "-"))
