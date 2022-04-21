@@ -76,7 +76,7 @@ def mlp_classify() -> None:
     # Train model and score
     filepath = "models/mlp_classifier.joblib.pkl"
     last_score = None
-    for i in range(1, 30):
+    for i in range(1, 51):
         print_heading(f"Run {i}")
         model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
         print(f"Score: {model.score(X_test, y_test)}")
