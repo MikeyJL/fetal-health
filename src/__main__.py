@@ -3,7 +3,7 @@
 
 from explore import preview_raw, distribution_subplots
 from tui import print_title, print_menu, get_option
-from model import eval_features, mlp_classify
+from model import eval_features, svm_train
 
 
 def explore_options() -> None:
@@ -27,7 +27,7 @@ def model_options() -> None:
     if model_option == 1:
         eval_features()
     elif model_option == 2:
-        mlp_classify()
+        svm_train()
     elif model_option == 3:
         pass
 

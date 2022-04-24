@@ -1,17 +1,12 @@
 """Contains models to use for prediction and classification."""
 
-from os import remove
-from os.path import exists
-
 import pandas as pd
 import joblib
 from pandas import DataFrame
 from sklearn.feature_selection import RFECV
 from sklearn.model_selection import StratifiedKFold, train_test_split
-from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.neural_network import MLPClassifier
-from tui import print_heading
+from sklearn.svm import SVC
 
 from visualise import PlotParams, simple_plot
 
@@ -30,7 +25,7 @@ def eval_features() -> None:
 
     # Feature selection
     rfecv: RFECV = RFECV(
-        estimator=LogisticRegression(max_iter=200),
+        estimator=SVC(kernel="linear"),
         cv=StratifiedKFold(2),
         scoring="accuracy",
         min_features_to_select=1,
@@ -53,8 +48,8 @@ def eval_features() -> None:
     )
 
 
-def mlp_classify() -> None:
-    """Multilayer perceptron classifier."""
+def svm_train() -> None:
+    """Trains a support vector classifier."""
 
     # Data
     df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
@@ -71,26 +66,18 @@ def mlp_classify() -> None:
     y_data: DataFrame = df["fetal_health"]
 
     # Train-test split
-    X_train, X_test, y_train, y_test = train_test_split(X_data, y_data)
+    X_train, X_test, y_train, y_test = train_test_split(X_data.values, y_data.values)
+
+    # Scales the data
+    scaler: StandardScaler = StandardScaler().fit(X_train)
+    X_train_scaled = scaler.transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
     # Train model and score
-    filepath = "models/mlp_classifier.joblib.pkl"
-    last_score = None
-    for i in range(1, 51):
-        print_heading(f"Run {i}")
-        model: MLPClassifier = MLPClassifier(max_iter=1000).fit(X_train, y_train)
-        print(f"Score: {model.score(X_test, y_test)}")
+    filepath = "models/svm_classifier.joblib.pkl"
+    model: SVC = SVC(kernel="linear").fit(X_train_scaled, y_train)
 
-        # Gets current saved model
-        if last_score is None:
-            last_score = joblib.load(filepath).score(X_test, y_test)
-        else:
-            last_score = model.score(X_test, y_test)
+    # Saves model
+    joblib.dump(model, filepath)
 
-        # Replaces saved model if score is better
-        if model.score(X_test, y_test) > last_score:
-            if exists(filepath):
-                remove(filepath)
-            joblib.dump(model, filepath)
-
-    print(f"Current model score: {joblib.load(filepath).score(X_test, y_test)}")
+    print(f"Model score: {model.score(X_test_scaled, y_test)}")
