@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 from pandas import DataFrame
 from sklearn.feature_selection import RFECV
-from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
@@ -26,7 +26,6 @@ def eval_features() -> None:
     # Feature selection
     rfecv: RFECV = RFECV(
         estimator=SVC(kernel="linear"),
-        cv=StratifiedKFold(2),
         scoring="accuracy",
         min_features_to_select=1,
     )
@@ -55,7 +54,21 @@ def svm_train() -> None:
     df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     # Features chosen from the evaluation
-    X_data: DataFrame = df[["accelerations", "histogram_mean", "histogram_median"]]
+    X_data: DataFrame = df[
+        [
+            "baseline value",
+            "accelerations",
+            "uterine_contractions",
+            "prolongued_decelerations",
+            "abnormal_short_term_variability",
+            "percentage_of_time_with_abnormal_long_term_variability",
+            "histogram_number_of_peaks",
+            "histogram_mode",
+            "histogram_mean",
+            "histogram_median",
+            "histogram_variance",
+        ]
+    ]
     y_data: DataFrame = df["fetal_health"]
 
     # Train-test split
