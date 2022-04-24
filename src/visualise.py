@@ -6,9 +6,10 @@ from os.path import exists
 import logging as log
 from typing import Any
 
-from pandas import DataFrame
+import numpy as np
 import matplotlib.pyplot as plt
 import dataframe_image as dfi
+from pandas import DataFrame
 from matplotlib.pyplot import Figure, Axes
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
@@ -197,4 +198,30 @@ def box_plot(
 
     # Shows plot if specified
     if data.show:
+        plt.show()
+
+
+def show_correlation(df: DataFrame, show: bool = False) -> None:
+    """Shows a correlation matrix for given DataFrame
+
+    Args:
+        df (DataFrame): The dataframe to process.
+        show (bool, optional): Whether to show the plot on runtime. Defaults to False.
+    """
+
+    df.drop(columns=["fetal_health"], axis=1)
+
+    features = df.columns
+    fig, ax = plt.subplots(figsize=(9, 9))
+    ax.matshow(df.corr())
+    ax.set_xticks(
+        np.arange((len(features))), features, fontsize="small", rotation="vertical"
+    )
+    ax.set_yticks(np.arange((len(features))), features, fontsize="small")
+    fig.suptitle("Correlation matrix for fetal health")
+
+    if not exists(f"{FIGURE_DIR}correlation-matrix.png"):
+        plt.savefig(f"{FIGURE_DIR}correlation-matrix.png")
+
+    if show:
         plt.show()

@@ -1,7 +1,4 @@
-"""Data processing.
-
-Requires: pandas.
-"""
+"""Exploration options and logic."""
 
 import logging as log
 from os.path import exists
@@ -13,7 +10,7 @@ from pandas import DataFrame
 from scipy.stats import shapiro, f_oneway, kruskal, kurtosis
 
 from tui import print_heading
-from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist
+from visualise import FIGURE_DIR, PlotParams, box_plot, plot_hist, show_correlation
 
 log.basicConfig(level=log.INFO, format="[%(levelname)s] %(message)s")
 PROCESSED_DATA_DIR = "data/processed/"
@@ -64,6 +61,8 @@ def preview_raw() -> None:
                 f"{FIGURE_DIR}{filename}.png",
             )
 
+    show_correlation(df)
+
 
 def distribution_subplots() -> None:
     """Creates a subplot of distributions and saves the figure.
@@ -73,7 +72,7 @@ def distribution_subplots() -> None:
 
     df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
-    for column in df.drop(columns=["fetal_health"], axis=1).columns:
+    for column in df.drop(columns=["fetal_health"], axis=1)[["accelerations"]].columns:
         # Subsets in to 3 fetal health categories for each column
         X = [
             df[df["fetal_health"] == 1][column].values,
