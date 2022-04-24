@@ -36,7 +36,7 @@ def eval_features() -> None:
         min_features_to_select=1,
     )
     rfecv.fit(X_train_scaled, y_train)
-    print(f"Optional number of features: {rfecv.n_features_}")
+    print(f"Optimal number of features: {rfecv.n_features_}")
     print(f"Selected features: {', '.join(X_train.columns[rfecv.support_])}")
 
     # Create a simple line plot
