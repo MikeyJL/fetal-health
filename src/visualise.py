@@ -209,16 +209,18 @@ def show_correlation(df: DataFrame, show: bool = False) -> None:
         show (bool, optional): Whether to show the plot on runtime. Defaults to False.
     """
 
-    df.drop(columns=["fetal_health"], axis=1)
-
+    # Plots correlation matrix
     features = df.columns
-    fig, ax = plt.subplots(figsize=(9, 9))
+    _, ax = plt.subplots(figsize=(9, 9))
     ax.matshow(df.corr())
     ax.set_xticks(
-        np.arange((len(features))), features, fontsize="small", rotation="vertical"
+        np.arange((len(features))), features, fontsize="x-small", rotation="vertical"
     )
-    ax.set_yticks(np.arange((len(features))), features, fontsize="small")
-    fig.suptitle("Correlation matrix for fetal health")
+    ax.set_yticks(np.arange((len(features))), features, fontsize="x-small")
+
+    # Sets text label of each box
+    for (i, j), txt in np.ndenumerate(df.corr().values):
+        ax.text(j, i, f"{txt:0.01f}", ha="center", va="center", fontsize="small")
 
     if not exists(f"{FIGURE_DIR}correlation-matrix.png"):
         plt.savefig(f"{FIGURE_DIR}correlation-matrix.png")
