@@ -20,8 +20,8 @@ def eval_features() -> None:
     y_train: DataFrame = df["fetal_health"]
 
     # Scaling
-    scaler: StandardScaler = StandardScaler().fit(X_train)
-    X_train_scaled = scaler.transform(X_train)
+    scaler: StandardScaler = StandardScaler().fit(X_train.values)
+    X_train_scaled = scaler.transform(X_train.values)
 
     # Feature selection
     rfecv: RFECV = RFECV(
@@ -30,7 +30,7 @@ def eval_features() -> None:
         scoring="accuracy",
         min_features_to_select=1,
     )
-    rfecv.fit(X_train_scaled, y_train)
+    rfecv.fit(X_train_scaled, y_train.values)
     print(f"Optimal number of features: {rfecv.n_features_}")
     print(f"Selected features: {', '.join(X_train.columns[rfecv.support_])}")
 
@@ -55,14 +55,7 @@ def svm_train() -> None:
     df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
     # Features chosen from the evaluation
-    X_data: DataFrame = df[
-        [
-            "accelerations",
-            "prolongued_decelerations",
-            "abnormal_short_term_variability",
-            "histogram_mean",
-        ]
-    ]
+    X_data: DataFrame = df[["accelerations", "histogram_mean", "histogram_median"]]
     y_data: DataFrame = df["fetal_health"]
 
     # Train-test split
