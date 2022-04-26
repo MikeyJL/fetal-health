@@ -72,7 +72,7 @@ def distribution_subplots() -> None:
 
     df: DataFrame = pd.read_csv("data/raw/fetal_health.csv")
 
-    for column in df.drop(columns=["fetal_health"], axis=1)[["accelerations"]].columns:
+    for column in df.drop(columns=["fetal_health"], axis=1).columns:
         # Subsets in to 3 fetal health categories for each column
         X = [
             df[df["fetal_health"] == 1][column].values,
